@@ -11,36 +11,33 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value="/service") 
+@ServerEndpoint(value = "/message")
 public class WebSocketService {
-    final static Queue<Session> queue=new ConcurrentLinkedQueue<>();
+    final static Queue<Session> queue = new ConcurrentLinkedQueue<>();
+
     public WebSocketService() {
         super();
     }
-    
+
     @OnOpen
-    public void open(Session session)
-    {
-            queue.add(session);
-        }
+    public void open(Session session) {
+        queue.add(session);
+    }
 
     @OnClose
-    public void closedConnection(Session session)
-    {
-            queue.remove(session);
-        }
+    public void closedConnection(Session session) {
+        queue.remove(session);
+    }
 
     @OnError
-    public void error(Session session, Throwable t)
-    {
-            queue.remove(session);
-            t.printStackTrace();
-        }
-    
+    public void error(Session session, Throwable t) {
+        queue.remove(session);
+        t.printStackTrace();
+    }
+
     @OnError
-    public void processMessage(Session session, String message)
-    {
-            queue.remove(session);
-            t.printStackTrace();
-        }
+    public void processMessage(Session session, String message) {
+        queue.remove(session);
+        System.out.println("message-->");
+    }
 }
