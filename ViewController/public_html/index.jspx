@@ -4,14 +4,16 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view>
         <af:document title="index.jspx" id="d1">
-        <af:resource type="javascript" source="../resources/js/socket.js?d=1" />        
+        <af:resource type="javascript" source="../resources/js/socket.js" />        
             <af:form id="f1">
                 <af:panelGridLayout id="pgl1">
                     <af:gridRow height="100%" id="gr1">
                         <af:gridCell width="100%" halign="stretch" valign="stretch" id="gc1">
-                            <!-- Content -->
-                            <af:panelGroupLayout id="pgl2">
-                                <af:inputText label="Label 1" id="it1"/>
+                            <af:panelGroupLayout id="pgl2" layout="vertical">
+                                <af:inputText label="Enter text:" id="message">
+                                    <af:clientListener method="processInverse" type="valueChange"/>
+                                </af:inputText>
+                                <af:outputText value="" id="inverseText" clientComponent="true"/>
                             </af:panelGroupLayout>
                         </af:gridCell>
                     </af:gridRow>

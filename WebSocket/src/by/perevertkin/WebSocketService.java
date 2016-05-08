@@ -1,12 +1,14 @@
 package by.perevertkin;
 
-import java.util.ConcurrentModificationException;
+import java.io.IOException;
+
 import java.util.Queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
+import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
@@ -21,13 +23,11 @@ public class WebSocketService {
 
     @OnOpen
     public void open(Session session) {
-        System.out.println("open session --->");
         queue.add(session);
     }
 
     @OnClose
     public void closedConnection(Session session) {
-        System.out.println("close connection---->");
         queue.remove(session);
     }
 
@@ -36,8 +36,13 @@ public class WebSocketService {
         queue.remove(session);
         t.printStackTrace();
     }
-
+    
+    @OnMessage
     public void processMessage(Session session, String message) {
-        System.out.println("message-->");
+        try {
+            session.getBasicRemote().sendText(new StringBuilder(message).reverse().toString());
+        } catch (IOException e) {
+            System.out.println("IOException:"+e);
+        }
     }
 }
