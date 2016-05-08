@@ -9,14 +9,30 @@ function getWSUri() {
 
 
 //Open a new WebSocket connection
-//Invoked on page load 
 function connectSocket() {  
-  console.log("connect socket ->")
-  websocket = new WebSocket(getWSUri());    
-  websocket.onmessage = onMessage;   
+  if ('WebSocket' in window){
+    websocket = new WebSocket(getWSUri());    
+    websocket.onmessage = onMessage;   
+    websocket.onerror = onError;
+    websocket.onclose = onClose;
+    console.log('socket opened !');
+  } else {
+    console.log('websocket not supported...!')
+  }
 }
 
+
+function onError(evt) {
+  console.log('error :' + evt);
+}
+
+function onClose(evt) {
+  console.log('websocket closed :' + evt.code + ":" + evt.reason);
+}
 
 function onMessage(evt) {
 console.log("on message ->")
+
 }
+
+window.addEventListener("load", connectSocket, false);
