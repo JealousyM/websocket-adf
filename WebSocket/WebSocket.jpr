@@ -71,6 +71,7 @@
       <list n="technologyScope">
          <string v="Java"/>
          <string v="WebSocket"/>
+         <string v="XML"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">

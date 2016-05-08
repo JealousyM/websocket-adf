@@ -19,8 +19,4 @@ function connectSocket() {
 
 function onMessage(evt) {
 console.log("on message ->")
-//  var boats = JSON.parse(evt.data);
-//  for (i=0; i<boats.length; i++) {
-//     markBoat(boats[i]);  
-//  }   
 }

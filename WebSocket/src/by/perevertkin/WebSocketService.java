@@ -21,11 +21,13 @@ public class WebSocketService {
 
     @OnOpen
     public void open(Session session) {
+        System.out.println("open session --->");
         queue.add(session);
     }
 
     @OnClose
     public void closedConnection(Session session) {
+        System.out.println("close connection---->");
         queue.remove(session);
     }
 
@@ -35,9 +37,7 @@ public class WebSocketService {
         t.printStackTrace();
     }
 
-    @OnError
     public void processMessage(Session session, String message) {
-        queue.remove(session);
         System.out.println("message-->");
     }
 }
